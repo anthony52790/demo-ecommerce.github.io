@@ -1,4 +1,4 @@
-export const notFound = () => {
+export const notfound = () => {
   PC.pages.notfound = {}
   PC.pages.notfound.renderHtml = function() {
     return Promise.resolve(

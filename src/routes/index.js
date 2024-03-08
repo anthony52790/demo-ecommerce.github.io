@@ -15,7 +15,7 @@ export const getRoutes = () => {
 
   const handleLocation = async () => {
     const path = window.location.pathname;
-    const type = window.history?.state?.id || (path === '/' ? 'home' : 'notfound')
+    const type = window.history?.state?.id || (path === '/' || path.includes('github') ? 'home' : 'notfound')
     const pageName = path.replace('/', '')
     const page = PC.pages[type]
     let loader
@@ -29,8 +29,11 @@ export const getRoutes = () => {
         loader = page.renderHtml()
         break;
 
-      default:
+      case 'notfound':
         loader = page.renderHtml()
+        break;
+
+      default:
         break;
     }
 
@@ -41,6 +44,10 @@ export const getRoutes = () => {
 
   window.onpopstate = handleLocation;
   window.route = route;
+
+  window.addEventListener('popstate', e => {
+    console.log(e)
+  })
 
   handleLocation();
 }
